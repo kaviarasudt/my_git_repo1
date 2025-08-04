@@ -42,3 +42,21 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+
+    - task: AzureIoTEdge@2
+  inputs:
+    action: 'Build module images'
+    templateFilePath: 'deployment.template.json'
+    defaultPlatform: 'amd64'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
